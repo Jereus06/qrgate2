@@ -1,0 +1,25 @@
+app = "qrgate2"  # Change to a unique app name (e.g., qrgate-yourname)
+primary_region = "sin"  # Singapore (closest to Philippines)
+
+[build]
+  dockerfile = "Dockerfile"
+
+[[services]]
+  protocol = "tcp"
+  internal_port = 80
+  processes = ["app"]
+
+  [[services.ports]]
+    port = 80
+    handlers = ["http"]
+    force_https = true
+
+  [[services.ports]]
+    port = 443
+    handlers = ["tls", "http"]
+    force_https = true
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 1
+  memory_mb = 256
